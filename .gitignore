@@ -1,0 +1,36 @@
+# Unity-generated folders
+Library/
+Temp/
+Build/
+
+# Visual Studio Code files
+.vscode/
+*.sln
+*.suo
+*.csproj
+*.csproj.user
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Custom build settings
+CustomBuildSettings.ini
+
+# Asset Store files
+AssetStoreTools*
+
+# Android build artifacts
+*.apk
+*.aab
+*.obb
+
+# iOS build artifacts
+*.ipa
+*.xcarchive
+*.dSYM.zip
+
+# Other files to ignore
+*.log
+*.bak
+*.meta
