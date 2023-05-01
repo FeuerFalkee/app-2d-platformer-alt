@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 // Klasse anlegen (erbt von Klasse MonoBehavior)
 public class PlayerController : MonoBehaviour
 {
-    // Rigidbody des Spielers festzulegen
+    // Rigidbody der Figur festlegen
     // Rigidbody 2D ist eine Unity-Komponente, die die Physik für die Figur (Bewegung...) berechnet
     public Rigidbody2D rb2D;
 
-    // Variable: Ist der Spieler auf dem Boden?
+    // Variable: Ist die Figur auf dem Boden?
     private bool grounded = true;
     
     // Funktion, wird aufgerufen, wenn die Figur auf einem Collider (Kollisionserkennung) ist
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         CheckIfDead();
     }
 
-    // Funktion, die überprüft, ob der Spieler stirbt
+    // Funktion, die überprüft, ob die Figur stirbt
     void CheckIfDead()
     {
         // Wenn die Figur unten rausfällt...
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         // Wenn die Leertaste gedrückt wird und die Figur auf dem Boden steht...
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            // ... vertikale Kraft hinzufügen, um den Spieler springen zu lassen
+            // ... vertikale Kraft hinzufügen, um die Figur springen zu lassen
             rb2D.AddForce(new Vector2(0, 600));
         }
     }
