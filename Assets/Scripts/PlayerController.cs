@@ -1,83 +1,84 @@
-// Importieren von Unity-Bibliotheken
+// Bibliotheken importieren
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Definition der Klasse "PlayerController"
+// Klasse anlegen (erbt von Klasse MonoBehavior)
 public class PlayerController : MonoBehaviour
 {
-    // Öffentliches Attribut, um den Rigidbody des Spielers festzulegen
+    // Rigidbody des Spielers festzulegen
+    // Rigidbody 2D ist eine Unity-Komponente, die die Physik für die Figur (Bewegung...) berechnet
     public Rigidbody2D rb2D;
 
-    // Privates Attribut, um zu verfolgen, ob der Spieler auf dem Boden ist
+    // Variable: Ist der Spieler auf dem Boden?
     private bool grounded = true;
     
-    // Funktion, die aufgerufen wird, wenn der Spieler auf einem anderen Objekt mit Collider landet und dort bleibt
+    // Funktion, wird aufgerufen, wenn die Figur auf einem Collider (Kollisionserkennung) ist
     private void OnTriggerStay2D(Collider2D collision) 
     {
-        // Setzt grounded auf true, um zu zeigen, dass der Spieler auf dem Boden ist
+        // Figur ist auf dem Boden
         grounded = true;
     }
 
-    // Funktion, die aufgerufen wird, wenn der Spieler in einen anderen Collider eintritt
+    // Funktion, wird aufgerufen, wenn die Figur einen Collider betritt
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        // Setzt grounded auf true, um zu zeigen, dass der Spieler auf dem Boden ist
+        // Figur betritt den Boden
         grounded = true;
     }
 
-    // Funktion, die aufgerufen wird, wenn der Spieler den Collider eines anderen Objekts verlässt
+    // Funktion, wird aufgerufen, wenn die Figur einen Collider verlässt (z. B. Springen)
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Setzt grounded auf false, um zu zeigen, dass der Spieler nicht auf dem Boden ist
+        // Figur verlässt den Boden
         grounded = false;
     }
 
-    // Funktion, die in jedem Frame ausgeführt wird
+    // Funktion, die bei jedem Frame ausgeführt wird
     void Update()
     {
-        // Verarbeitet die Eingabe des Spielers
+        // Tastatureingabe verarbeiten
         ProcessInput();
-        // Überprüft, ob der Spieler tot ist
+        // Ist die Figur tot?
         CheckIfDead();
     }
 
-    // Funktion, die überprüft, ob der Spieler gestorben ist
+    // Funktion, die überprüft, ob der Spieler stirbt
     void CheckIfDead()
     {
-        // Wenn der Spieler unter eine bestimmte Y-Position fällt...
+        // Wenn die Figur unten rausfällt...
         if(transform.position.y < -13f)
         {
-            // ... lade die aktuelle Szene neu
+            // ... dann von vorne beginnen
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
-    // Funktion, die die Eingabe des Spielers verarbeitet
+    // Funktion, für die Tastatureingabe
     void ProcessInput()
     {
-        // Setzt die horizontale Geschwindigkeit des Spielers auf 0, um ihn anzuhalten
+        // Figur anhalten (horizontale Geschwindigkeit auf 0)
         rb2D.velocity = new Vector2(0, rb2D.velocity.y);
 
         // Wenn die rechte Pfeiltaste gedrückt wird...
         if(Input.GetKey(KeyCode.RightArrow))
         {
-            // ... setze die horizontale Geschwindigkeit des Spielers auf 10
+            // ... horizontale Geschwindigkeit der Figur auf 10 setzen
             rb2D.velocity = new Vector2(10, rb2D.velocity.y);
         }
 
         // Wenn die linke Pfeiltaste gedrückt wird...
         if(Input.GetKey(KeyCode.LeftArrow))
         {
-            // ... setze die horizontale Geschwindigkeit des Spielers auf -10
+            // ... horizontale Geschwindigkeit der Figur auf -10 setzen
             rb2D.velocity = new Vector2(-10, rb2D.velocity.y);
         }
 
-        // Wenn die Leertaste gedrückt wird und der Spieler auf dem Boden steht...
+        // Wenn die Leertaste gedrückt wird und die Figur auf dem Boden steht...
         if(Input.GetKeyDown(KeyCode.Space) && grounded)
         {
-            // ... füge eine vertikale Kraft hinzu, um den Spieler zu springen
+            // ... vertikale Kraft hinzufügen, um den Spieler springen zu lassen
             rb2D.AddForce(new Vector2(0, 600));
         }
     }
